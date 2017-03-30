@@ -1,4 +1,4 @@
-package self.srr.Config;
+package self.srr.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

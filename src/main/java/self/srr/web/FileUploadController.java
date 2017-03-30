@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import self.srr.Config.SfhConfiguration;
+import self.srr.config.SfhConfiguration;
 import self.srr.model.Message;
 
 import java.io.File;
