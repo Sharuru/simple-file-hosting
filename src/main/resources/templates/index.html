@@ -37,7 +37,7 @@
 
 <div class="container kv-main" id="file-input-div">
     <form enctype="multipart/form-data">
-        <input id="file-input" type="file" name="file" class="file"/>
+        <input id="file-input" type="file" name="file" class="file" multiple="multiple"/>
     </form>
 </div>
 
@@ -50,12 +50,14 @@
 
 <script>
     $("#file-input").fileinput({
-            uploadUrl: 'upload',
-            fileSizeGetter: true,
-            allowedFileExtensions: ['jpg', 'gif', 'png', 'txt'],
-            maxFileCount: 5,
-            maxFileSize: 50 * 1024
+        uploadUrl: 'upload',
+        fileSizeGetter: true,
+        allowedFileExtensions: ['jpg', 'gif', 'png', 'bmp'],
+        maxFileCount: 5,
+        maxFileSize: 50 * 1024,
+        fileActionSettings: {
+            showZoom: false
         }
-    );
+    });
 </script>
 </html>

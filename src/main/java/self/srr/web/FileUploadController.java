@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import self.srr.model.MessageResponse;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,15 +18,16 @@ import java.io.OutputStream;
 @RestController
 public class FileUploadController {
 
-    @RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
-    public String uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public MessageResponse uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
+        MessageResponse resp = new MessageResponse();
         if (!file.isEmpty()) {
             InputStream in = null;
             OutputStream out = null;
 
             try {
-                String rootPath = "D:\\abc";
-                File dir = new File(rootPath + File.separator + "tmpFiles");
+                String rootPath = "E:\\recv";
+                File dir = new File(rootPath);
                 if (!dir.exists())
                     dir.mkdirs();
                 File serverFile = new File(dir.getAbsolutePath() + File.separator + file.getOriginalFilename());
@@ -66,7 +68,7 @@ public class FileUploadController {
             msg.setError("File is empty");
             return msg;*/
         }
-
-        return "OK";
+        resp.setMsg("aaaa");
+        return resp;
     }
 }
