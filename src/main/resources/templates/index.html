@@ -31,13 +31,13 @@
 
 <div class="container" style="padding-top: 70px;">
     <h1>File Upload</h1>
-    <p>50 MB max per file. 5 files max per request</p>
+    <p>5 MB max per file. 5 files max per request</p>
     <p>All the files may deleted every 3 months.</p>
 </div>
 
 <div class="container kv-main" id="file-input-div">
     <form enctype="multipart/form-data">
-        <input id="file-input" type="file" name="file" class="file" multiple="multiple"/>
+        <input id="file-input" name="file" type="file" class="file" multiple="multiple"/>
     </form>
 </div>
 
@@ -54,10 +54,14 @@
         fileSizeGetter: true,
         allowedFileExtensions: ['jpg', 'gif', 'png', 'bmp'],
         maxFileCount: 5,
-        maxFileSize: 50 * 1024,
+        maxFileSize: 5 * 1024,
         fileActionSettings: {
             showZoom: false
-        }
+        },
+        resizeImage : true,
+        maxImageWidth: 150,
+        resizePreference: 'width',
+        resizeImageQuality: 0.7
     });
 </script>
 </html>

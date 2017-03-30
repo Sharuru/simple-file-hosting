@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import self.srr.model.MessageResponse;
+import self.srr.model.Message;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,27 +19,20 @@ import java.io.OutputStream;
 public class FileUploadController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public MessageResponse uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
-        MessageResponse resp = new MessageResponse();
+    public Message uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
+        Message msg = new Message();
+
         if (!file.isEmpty()) {
-            InputStream in = null;
-            OutputStream out = null;
 
             try {
                 String rootPath = "E:\\recv";
-                File dir = new File(rootPath);
-                if (!dir.exists())
-                    dir.mkdirs();
-                File serverFile = new File(dir.getAbsolutePath() + File.separator + file.getOriginalFilename());
-                in = file.getInputStream();
-                out = new FileOutputStream(serverFile);
-                byte[] b = new byte[1024];
-                int len = 0;
-                while ((len = in.read(b)) > 0) {
-                    out.write(b, 0, len);
+                File targetPath = new File(rootPath);
+                if (!targetPath.exists()) {
+                    targetPath.mkdirs();
                 }
-                out.close();
-                in.close();
+
+                file.transferTo(new File(targetPath.getAbsolutePath() + File.separator + file.getOriginalFilename()));
+
                 //logger.info("Server File Location=" + serverFile.getAbsolutePath());
 
       /*          Message msg = new Message();
@@ -51,16 +44,7 @@ public class FileUploadController {
 //                msg.setStatus(Status.ERROR);
 //                msg.setError("File upload file");
 //                return msg;
-            } finally {
-                if (out != null) {
-                    out.close();
-                    out = null;
-                }
-
-                if (in != null) {
-                    in.close();
-                    in = null;
-                }
+                e.printStackTrace();
             }
         } else {
             /*Message msg = new Message();
@@ -68,7 +52,7 @@ public class FileUploadController {
             msg.setError("File is empty");
             return msg;*/
         }
-        resp.setMsg("aaaa");
-        return resp;
+        msg.setMsg("aaaa");
+        return msg;
     }
 }
