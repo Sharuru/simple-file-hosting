@@ -1,5 +1,6 @@
 package self.srr.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,17 +13,14 @@ import java.io.File;
 
 /**
  * Class handling file upload request
- *
+ * <p>
  * Created by Sharuru on 2017/03/30.
  */
 @RestController
 public class FileUploadController {
 
-    private final SfhConfiguration properties;
-
-    public FileUploadController(SfhConfiguration properties) {
-        this.properties = properties;
-    }
+    @Autowired
+    SfhConfiguration properties;
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public Message uploadFile(@RequestParam("file") MultipartFile file) throws Exception {

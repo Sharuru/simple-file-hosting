@@ -1,5 +1,6 @@
 package self.srr.model;
 
+
 /**
  * Created by Sharuru on 2017/03/30.
  */

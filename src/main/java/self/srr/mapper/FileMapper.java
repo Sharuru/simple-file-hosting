@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Select;
 import self.srr.model.Files;
 
 /**
+ * Mapper handling database querying
+ * <p>
  * Created by Sharuru on 2017/03/30.
  */
 @Mapper
