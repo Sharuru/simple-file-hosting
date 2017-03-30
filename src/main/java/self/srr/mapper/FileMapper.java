@@ -14,5 +14,5 @@ import self.srr.model.Files;
 public interface FileMapper {
 
     @Select("SELECT * FROM files WHERE id = #{id}")
-    Files findById(@Param("id") int id);
+    Files findOneById(@Param("id") int id);
 }

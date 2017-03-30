@@ -20,7 +20,7 @@ import java.io.File;
 public class FileUploadController {
 
     @Autowired
-    SfhConfiguration properties;
+    private SfhConfiguration properties;
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public Message uploadFile(@RequestParam("file") MultipartFile file) throws Exception {

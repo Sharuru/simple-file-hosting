@@ -9,18 +9,15 @@ import self.srr.model.Files;
 
 /**
  * Class handling index page request
- *
+ * <p>
  * Created by Sharuru on 2017/03/30.
  */
 @Controller
 @RequestMapping("/")
 public class IndexController {
 
-    @Autowired
-    FileMapper mapper;
-
-    @RequestMapping(value = "/",method = RequestMethod.GET)
-    public String index(){
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index() {
         return "index";
     }
 }
