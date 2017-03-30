@@ -2,15 +2,60 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
+
     <title>Simple File Hosting</title>
 
-    <link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"/>
+    <link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/fileinput.min.css}" rel="stylesheet"/>
 </head>
 <body>
-<h3>casdasdaasd</h3>
-<button title="aaaaa">aaaadasdadasaa</button>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Simple File Hosting</a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Admin</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Change Log</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container" style="padding-top: 70px;">
+    <h1>File Upload</h1>
+    <p>50 MB max per file. 5 files max per request</p>
+    <p>All the files may deleted every 3 months.</p>
+</div>
+
+<div class="container kv-main" id="file-input-div">
+    <form enctype="multipart/form-data">
+        <input id="file-input" type="file" name="file" class="file"/>
+    </form>
+</div>
+
 </body>
 
 <script th:src="@{/webjars/jquery/3.2.0/jquery.min.js}"/>
+<script th:src="@{/js/plugins/canvas-to-blob.min.js}"/>
+<script th:src="@{/js/fileinput.min.js}"/>
 <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"/>
+
+<script>
+    $("#file-input").fileinput({
+            uploadUrl: 'upload',
+            fileSizeGetter: true,
+            allowedFileExtensions: ['jpg', 'gif', 'png', 'txt'],
+            maxFileCount: 5,
+            maxFileSize: 50 * 1024
+        }
+    );
+</script>
 </html>
