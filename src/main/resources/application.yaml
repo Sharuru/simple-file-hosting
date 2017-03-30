@@ -1,3 +1,7 @@
 spring:
   thymeleaf:
     cache: false
+
+sfh:
+  storagePath: "E:\\recv"
+  exposedAddr: "http://127.0.0.1:12345/"

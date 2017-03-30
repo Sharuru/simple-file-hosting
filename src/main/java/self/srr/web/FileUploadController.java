@@ -5,18 +5,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import self.srr.Config.SfhConfiguration;
 import self.srr.model.Message;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 /**
+ * Class handling file upload request
+ *
  * Created by Sharuru on 2017/03/30.
  */
 @RestController
 public class FileUploadController {
+
+    private final SfhConfiguration properties;
+
+    public FileUploadController(SfhConfiguration properties) {
+        this.properties = properties;
+    }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public Message uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
@@ -25,34 +31,20 @@ public class FileUploadController {
         if (!file.isEmpty()) {
 
             try {
-                String rootPath = "E:\\recv";
+                String rootPath = properties.getStoragePath();
                 File targetPath = new File(rootPath);
                 if (!targetPath.exists()) {
                     targetPath.mkdirs();
                 }
-
                 file.transferTo(new File(targetPath.getAbsolutePath() + File.separator + file.getOriginalFilename()));
-
-                //logger.info("Server File Location=" + serverFile.getAbsolutePath());
-
-      /*          Message msg = new Message();
-                msg.setStatus(Status.SUCCESS);
-                msg.setStatusMsg("File upload success");
-                return msg;*/
+                msg.setMsg("Success");
             } catch (Exception e) {
-//                Message msg = new Message();
-//                msg.setStatus(Status.ERROR);
-//                msg.setError("File upload file");
-//                return msg;
+                msg.setMsg("Exception captured." + e.getMessage());
                 e.printStackTrace();
             }
         } else {
-            /*Message msg = new Message();
-            msg.setStatus(Status.ERROR);
-            msg.setError("File is empty");
-            return msg;*/
+            msg.setMsg("File is empty.");
         }
-        msg.setMsg("aaaa");
         return msg;
     }
 }
