@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/")
 public class IndexController {
 
+    /**
+     * Requesting index page
+     *
+     * @return index template
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
         return "index";

@@ -1,16 +1,15 @@
 package self.srr.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
+ * Message response JSON model
+ * <p>
  * Created by Sharuru on 2017/03/30.
  */
 
 public class Message {
-    String msg;
 
-    String markdownComm;
+    private String msg;
+    private String markdownComm;
 
     public String getMsg() {
         return msg;

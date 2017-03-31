@@ -11,8 +11,6 @@ import self.srr.model.Files;
 import self.srr.model.Message;
 import self.srr.processor.FileProcessor;
 
-import java.io.File;
-
 /**
  * Class handling file upload request
  * <p>
@@ -27,6 +25,13 @@ public class FileUploadController {
     @Autowired
     private FileProcessor processor;
 
+    /**
+     * Upload file handler
+     *
+     * @param files uploaded file
+     * @return response json
+     * @throws Exception exception
+     */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public Message uploadFile(@RequestParam("files") MultipartFile[] files) throws Exception {
         Message msg = new Message();
@@ -35,7 +40,7 @@ public class FileUploadController {
             if (!aFile.isEmpty()) {
                 try {
                     Files processedFile = processor.save(aFile);
-                    msg.setMarkdownComm("![" + aFile.getOriginalFilename() + "](" + properties.getExposedAddr() + processedFile.getFileName() + ")");
+                    msg.setMarkdownComm("![" + aFile.getOriginalFilename() + "](" + properties.getExposedLink() + processedFile.getFileName() + ")");
                     msg.setMsg("Success: " + aFile.getOriginalFilename());
                 } catch (Exception e) {
                     msg.setMsg("Exception captured." + e.getMessage());

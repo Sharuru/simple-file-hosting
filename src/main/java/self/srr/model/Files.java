@@ -2,17 +2,19 @@ package self.srr.model;
 
 
 /**
+ * files table entity
+ * <p>
  * Created by Sharuru on 2017/03/30.
  */
 public class Files {
 
-    int id;
-    String orgFilename;
-    String fileName;
-    String creator;
-    String adm_password;
-    String create_at;
-    String delete_flg;
+    private int id;
+    private String orgFilename;
+    private String fileName;
+    private String creator;
+    private String adm_password;
+    private String create_at;
+    private String delete_flg;
 
     public int getId() {
         return id;

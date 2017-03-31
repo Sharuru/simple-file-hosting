@@ -14,8 +14,7 @@ public class SfhConfiguration {
 
     private String storagePath;
 
-    private String exposedAddr;
-
+    private String exposedLink;
 
     public String getStoragePath() {
         return storagePath;
@@ -25,11 +24,11 @@ public class SfhConfiguration {
         this.storagePath = storagePath;
     }
 
-    public String getExposedAddr() {
-        return exposedAddr;
+    public String getExposedLink() {
+        return exposedLink;
     }
 
-    public void setExposedAddr(String exposedAddr) {
-        this.exposedAddr = exposedAddr;
+    public void setExposedLink(String exposedLink) {
+        this.exposedLink = exposedLink;
     }
 }

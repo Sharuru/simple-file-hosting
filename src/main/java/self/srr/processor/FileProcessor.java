@@ -11,9 +11,10 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.util.Arrays;
 
 /**
+ * File processor
+ * <p>
  * Created by Sharuru on 2017/03/30.
  */
 @Service
@@ -26,6 +27,12 @@ public class FileProcessor {
     private SfhConfiguration properties;
 
 
+    /**
+     * Save file process
+     *
+     * @param receivedFile file
+     * @return processed file model
+     */
     public Files save(MultipartFile receivedFile) {
         try {
             // calc MD5

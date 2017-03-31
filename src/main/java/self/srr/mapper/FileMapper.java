@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
 import self.srr.model.Files;
 
 /**
@@ -12,6 +13,7 @@ import self.srr.model.Files;
  * Created by Sharuru on 2017/03/30.
  */
 @Mapper
+@Repository
 public interface FileMapper {
 
     @Select("SELECT * FROM files WHERE filename = #{filename} LIMIT 1")
