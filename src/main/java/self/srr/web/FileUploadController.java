@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import self.srr.config.SfhConfiguration;
+import self.srr.model.Files;
 import self.srr.model.Message;
 import self.srr.processor.FileProcessor;
 
@@ -24,7 +25,7 @@ public class FileUploadController {
     private SfhConfiguration properties;
 
     @Autowired
-    FileProcessor processor;
+    private FileProcessor processor;
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public Message uploadFile(@RequestParam("files") MultipartFile[] files) throws Exception {
@@ -33,7 +34,8 @@ public class FileUploadController {
         for (MultipartFile aFile : files) {
             if (!aFile.isEmpty()) {
                 try {
-                    processor.save(aFile);
+                    Files processedFile = processor.save(aFile);
+                    msg.getMarkdownComm().add("![" + processedFile.getOrgFilename() + "](" + properties.getExposedAddr() + processedFile.getFileName() + ")");
                     msg.setMsg("Success: " + aFile.getOriginalFilename());
                 } catch (Exception e) {
                     msg.setMsg("Exception captured." + e.getMessage());
@@ -43,7 +45,6 @@ public class FileUploadController {
                 msg.setMsg("File is empty.");
             }
         }
-
         return msg;
     }
 }

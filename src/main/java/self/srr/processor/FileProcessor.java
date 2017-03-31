@@ -20,20 +20,18 @@ import java.util.Arrays;
 public class FileProcessor {
 
     @Autowired
-    FileMapper mapper;
+    private FileMapper mapper;
 
     @Autowired
     private SfhConfiguration properties;
 
 
-    public boolean save(MultipartFile receivedFile) {
-
+    public Files save(MultipartFile receivedFile) {
         try {
             // calc MD5
             String md5 = calcMD5(receivedFile);
-
             // check duplicate
-            Files queriedFile = mapper.findOneByFilename(md5);
+            Files queriedFile = mapper.findOneByFilename(md5 + ".jpg");
             if (queriedFile == null) {
                 // first time, save
                 storage(receivedFile);
@@ -44,15 +42,14 @@ public class FileProcessor {
                 dao.setAdm_password("default");
                 dao.setCreator("web");
                 mapper.insert(dao);
+                return dao;
             } else {
-                // skip and return queriedFile
+                return queriedFile;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return false;
+        return null;
     }
 
     /**

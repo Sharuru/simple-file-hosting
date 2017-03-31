@@ -14,9 +14,6 @@ import self.srr.model.Files;
 @Mapper
 public interface FileMapper {
 
-    @Select("SELECT * FROM files WHERE id = #{id} LIMIT 1")
-    Files findOneById(@Param("id") int id);
-
     @Select("SELECT * FROM files WHERE filename = #{filename} LIMIT 1")
     Files findOneByFilename(@Param("filename") String fileName);
 
