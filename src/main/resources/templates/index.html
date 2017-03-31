@@ -71,7 +71,7 @@
 
     $('#file-input').on('fileuploaded', function (event, data, previewId, index) {
         var text = JSON.stringify(data.response.markdownComm);
-        $('#response-div').append('<p>' + text.substr(1, text.length - 1) + '</p>');
+        $('#response-div').append('<p>' + text.substr(1, text.length - 2) + '</p>');
         console.log(JSON.stringify(data.response));
     });
 </script>
