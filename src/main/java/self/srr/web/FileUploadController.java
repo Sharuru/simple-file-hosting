@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import self.srr.config.SfhConfiguration;
 import self.srr.model.Message;
+import self.srr.processor.FileProcessor;
 
 import java.io.File;
 
@@ -22,27 +23,27 @@ public class FileUploadController {
     @Autowired
     private SfhConfiguration properties;
 
+    @Autowired
+    FileProcessor processor;
+
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public Message uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
+    public Message uploadFile(@RequestParam("files") MultipartFile[] files) throws Exception {
         Message msg = new Message();
 
-        if (!file.isEmpty()) {
-
-            try {
-                String rootPath = properties.getStoragePath();
-                File targetPath = new File(rootPath);
-                if (!targetPath.exists()) {
-                    targetPath.mkdirs();
+        for (MultipartFile aFile : files) {
+            if (!aFile.isEmpty()) {
+                try {
+                    processor.save(aFile);
+                    msg.setMsg("Success: " + aFile.getOriginalFilename());
+                } catch (Exception e) {
+                    msg.setMsg("Exception captured." + e.getMessage());
+                    e.printStackTrace();
                 }
-                file.transferTo(new File(targetPath.getAbsolutePath() + File.separator + file.getOriginalFilename()));
-                msg.setMsg("Success");
-            } catch (Exception e) {
-                msg.setMsg("Exception captured." + e.getMessage());
-                e.printStackTrace();
+            } else {
+                msg.setMsg("File is empty.");
             }
-        } else {
-            msg.setMsg("File is empty.");
         }
+
         return msg;
     }
 }
