@@ -10,7 +10,7 @@ import java.util.List;
 public class Message {
     String msg;
 
-    List<String> markdownComm = new ArrayList<>();
+    String markdownComm;
 
     public String getMsg() {
         return msg;
@@ -20,11 +20,11 @@ public class Message {
         this.msg = msg;
     }
 
-    public List<String> getMarkdownComm() {
+    public String getMarkdownComm() {
         return markdownComm;
     }
 
-    public void setMarkdownComm(List<String> markdownComm) {
+    public void setMarkdownComm(String markdownComm) {
         this.markdownComm = markdownComm;
     }
 }

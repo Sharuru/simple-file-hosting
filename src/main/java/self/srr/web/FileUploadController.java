@@ -35,7 +35,7 @@ public class FileUploadController {
             if (!aFile.isEmpty()) {
                 try {
                     Files processedFile = processor.save(aFile);
-                    msg.getMarkdownComm().add("![" + processedFile.getOrgFilename() + "](" + properties.getExposedAddr() + processedFile.getFileName() + ")");
+                    msg.setMarkdownComm("![" + aFile.getOriginalFilename() + "](" + properties.getExposedAddr() + processedFile.getFileName() + ")");
                     msg.setMsg("Success: " + aFile.getOriginalFilename());
                 } catch (Exception e) {
                     msg.setMsg("Exception captured." + e.getMessage());
