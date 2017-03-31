@@ -34,7 +34,7 @@ public class FileProcessor {
             Files queriedFile = mapper.findOneByFilename(md5 + ".jpg");
             if (queriedFile == null) {
                 // first time, save
-                storage(receivedFile);
+                storage(receivedFile, md5);
                 // write to database
                 Files dao = new Files();
                 dao.setOrgFilename(receivedFile.getOriginalFilename());
@@ -58,13 +58,13 @@ public class FileProcessor {
      * @param file target file
      * @throws IOException exception
      */
-    private void storage(MultipartFile file) throws IOException {
+    private void storage(MultipartFile file, String md5) throws IOException {
         String rootPath = properties.getStoragePath();
         File targetPath = new File(rootPath);
         if (!targetPath.exists()) {
             targetPath.mkdirs();
         }
-        file.transferTo(new File(targetPath.getAbsolutePath() + File.separator + file.getOriginalFilename()));
+        file.transferTo(new File(targetPath.getAbsolutePath() + File.separator + md5 + ".jpg"));
     }
 
 
