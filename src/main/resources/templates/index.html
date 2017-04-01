@@ -74,5 +74,14 @@
         $('#response-div').append('<p>' + text.substr(1, text.length - 2) + '</p>');
         console.log(JSON.stringify(data.response));
     });
+
+    $('#file-input').on('fileimageresized', function(event, previewId, index){
+        console.log('resized: ' + index);
+    });
+
+    $('#file-input').on('fileimagesresized', function(event, previewId, index){
+        console.log('all resized');
+    });
+
 </script>
 </html>
