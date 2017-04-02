@@ -339,7 +339,7 @@
             var self = this, tMain1, tMain2, tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse,
                 tModalMain, tModal, tProgress, tSize, tFooter, tActions, tActionDelete, tActionUpload, tActionZoom,
                 tActionDrag, tTagBef, tTagBef1, tTagBef2, tTagAft, tGeneric, tHtml, tImage, tText, tVideo, tAudio,
-                tFlash, tObject, tPdf, tOther, tZoomCache;
+                tFlash, tObject, tPdf, tOther, tZoomCache, vDefaultDim;
             tMain1 = '{preview}\n' +
                 '<div class="kv-upload-progress hide"></div>\n' +
                 '<div class="input-group {class}">\n' +
@@ -442,6 +442,7 @@
                 'width="{width}" height="{height}" type="application/pdf">\n';
             tOther = '<div class="kv-preview-data file-preview-other-frame">\n' + $h.DEFAULT_PREVIEW + '\n</div>\n';
             tZoomCache = '<div class="kv-zoom-cache" style="display:none">{zoomContent}</div>';
+            vDefaultDim = {width: "100%", height: "100%", 'min-height': "480px"};
             self.defaults = {
                 layoutTemplates: {
                     main1: tMain1,
@@ -497,13 +498,13 @@
                 },
                 previewZoomSettings: {
                     image: {width: "auto", height: "auto", 'max-width': "100%", 'max-height': "100%"},
-                    html: {width: "100%", height: "100%", 'min-height': "480px"},
-                    text: {width: "100%", height: "100%", 'min-height': "480px"},
+                    html: vDefaultDim,
+                    text: vDefaultDim,
                     video: {width: "auto", height: "100%", 'max-width': "100%"},
                     audio: {width: "100%", height: "30px"},
                     flash: {width: "auto", height: "480px"},
-                    object: {width: "auto", height: "100%", 'min-height': "480px"},
-                    pdf: {width: "100%", height: "100%", 'min-height': "480px"},
+                    object: vDefaultDim,
+                    pdf: vDefaultDim,
                     other: {width: "auto", height: "100%", 'min-height': "480px"}
                 },
                 fileTypeSettings: {
@@ -848,7 +849,7 @@
         },
         _showUploadError: function (msg, params, event) {
             var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror', e = params && params.id ?
-            '<li data-file-id="' + params.id + '">' + msg + '</li>' : '<li>' + msg + '</li>';
+                '<li data-file-id="' + params.id + '">' + msg + '</li>' : '<li>' + msg + '</li>';
             if ($error.find('ul').length === 0) {
                 self._addError('<ul>' + e + '</ul>');
             } else {
@@ -3116,8 +3117,9 @@
         _resetFileStack: function () {
             var self = this, i = 0, newstack = [], newnames = [], newids = [];
             self._getThumbs().each(function () {
-                var $thumb = $(this), ind = $thumb.attr('data-fileindex'), file = self.filestack[ind];
-                if (ind === -1) {
+                var $thumb = $(this), ind = $thumb.attr('data-fileindex'), file = self.filestack[ind],
+                    pid = $thumb.attr('id'), newId;
+                if (ind === '-1' || ind === -1) {
                     return;
                 }
                 if (file !== undefined) {
@@ -3127,7 +3129,9 @@
                     $thumb.attr({'id': self.previewInitId + '-' + i, 'data-fileindex': i});
                     i++;
                 } else {
-                    $thumb.attr({'data-fileindex': '-1'});
+                    newId = 'uploaded-' + $h.uniqId();
+                    $thumb.attr({'id': newId, 'data-fileindex': '-1'});
+                    self.$preview.find('#zoom-' + pid).attr('id', 'zoom-' + newId);
                 }
             });
             self.filestack = newstack;
