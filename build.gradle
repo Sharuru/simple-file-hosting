@@ -18,14 +18,14 @@ apply plugin: 'org.springframework.boot'
 
 jar {
     baseName = 'sfh'
-    version = '0.0.2-SNAPSHOT'
+    version = '0.0.3-SNAPSHOT'
 }
 
 springBoot {
     executable = true
 }
 
-version = '0.0.2-SNAPSHOT'
+version = '0.0.3-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
